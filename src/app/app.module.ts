@@ -17,10 +17,20 @@ import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.componen
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth-guard.service';
 import { UserService } from './user.service';
 import { AdminAuthGuard } from './admin-auth-guard.service';
+import { ProductFormComponent } from './admin/product-form/product-form.component';
+import { CategoryService } from './category.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ProductService } from './product.service';
+import { NgxValidateCoreModule } from '@ngx-validate/core';
+
+import { DataTableModule } from 'angular-datatables-all-versions';
+import { ErrorComponent } from './error-comp/error.component';
+
 
 @NgModule({
   declarations: [
@@ -34,16 +44,33 @@ import { AdminAuthGuard } from './admin-auth-guard.service';
     LoginComponent,
     MyOrdersComponent,
     AdminProductsComponent,
-    AdminOrdersComponent
+    AdminOrdersComponent,
+    ProductFormComponent,
+    ErrorComponent
+    
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgxValidateCoreModule.forRoot({
+      blueprints: {
+        invalidUsername: 'The username "{{value}}" is taken.',
+        invalidImage: 'The url "{{value}}" is invalid.',
+      },
+      errorTemplate: ErrorComponent,
+      targetSelector: '.form-group',
+    }),
+    DataTableModule.forRoot(),
+
+
     AppRoutingModule,
     NgbModule,
     AngularFireModule.initializeApp(firebase),
     AngularFireAuthModule,
+    AngularFireDatabaseModule,
     RouterModule.forRoot([
-      {path:'' , component:HomeComponent},
+      {path:'' , component:ProductsComponent},
       {path:'products' , component:ProductsComponent},
       {path:'shopping-cart' , component:ShopingCartComponent},
       {path:'login' , component:LoginComponent},
@@ -52,7 +79,11 @@ import { AdminAuthGuard } from './admin-auth-guard.service';
       {path:'order-success' , component:OrderSuccessComponent , canActivate:[ AuthGuard ]},
       {path:'my/orders' , component:MyOrdersComponent, canActivate:[ AuthGuard ]},
      
+      
+      {path:'admin/products/new' , component:ProductFormComponent , canActivate:[ AuthGuard , AdminAuthGuard]},
+      {path:'admin/products/:id' , component:ProductFormComponent , canActivate:[ AuthGuard , AdminAuthGuard]},
       {path:'admin/products' , component:AdminProductsComponent , canActivate:[ AuthGuard , AdminAuthGuard]},
+      
       {path:'admin/orders' , component:AdminOrdersComponent, canActivate:[ AuthGuard , AdminAuthGuard]},
     ]),
     NgbModule
@@ -61,8 +92,11 @@ import { AdminAuthGuard } from './admin-auth-guard.service';
     AuthService,
     AuthGuard,
     AdminAuthGuard,
-    UserService
+    UserService,
+    CategoryService,
+    ProductService
   ],
+  entryComponents: [ErrorComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

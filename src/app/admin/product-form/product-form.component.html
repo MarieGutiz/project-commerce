@@ -1,0 +1,76 @@
+<div class="row">
+    <div class="col-md-6">
+        <div class="card m-5">
+            <div class="card-body">
+              <form [formGroup]="form" (ngSubmit)="save()"  _validateOnSubmit novalidate>
+                <div formGroupName="productForm">
+                  <div class="form-group is-invalid">
+                        <label for="title">Title</label>
+                        <input  formControlName="title"
+                        id="title"
+                        type="text"
+                        placeholder="Enter a title."
+                        class="form-control"
+                        autocomplete="off" #title>         
+                  </div>
+                  <div class="form-group">
+                    <label for="price">Price</label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">$</span>
+                        <input formControlName="price"
+                        id="price"
+                        type="number"
+                        placeholder="Enter a price."
+                        class="form-control"
+                        autocomplete="off" #price>                 
+                    </div>  
+                  </div>
+                  <div class="form-group">
+                    <label for="category">Category</label>
+                    <select formControlName="category"
+                         id="category"
+                         aria-placeholder="Enter a category."
+                         class="form-control"
+                         autocomplete="off" #category>
+                         
+                        <option value=""></option>
+                        <option *ngFor="let item of categorie$ | async" [value]="item.name">
+                            {{item.name}}
+                        </option>
+                    </select>
+                </div>        
+                <div class="form-group is-invalid">
+                    <label for="image">Image</label>
+                    <input #image  formControlName="image"
+                    id="image"
+                    type="url"
+                    placeholder="Upload a image."
+                    class="form-control"
+                    autocomplete="off">         
+               </div>
+                </div>
+
+                <button class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-danger" (click)="delete()">Delete</button>
+                <button type="button" class="btn btn-success" (click)="returnBck()">Return</button>
+
+              </form>
+            </div>
+          </div>
+
+    </div>
+    <div class="col-md-6">
+        <div *ngIf="productById.title || title.value" class="card" style="width: 18rem;">
+            <img [src]="image.value" class="card-img-top" alt="">
+            <div class="card-body">
+              <h5 class="card-title">{{ title.value }}</h5>
+              <p class="card-text">{{ price.value | currency:'USD':true }}</p>
+            </div>
+          </div>
+    </div>
+</div>
+
+
+
+
+  

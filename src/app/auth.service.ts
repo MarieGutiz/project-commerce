@@ -33,13 +33,16 @@ export class AuthService {
     .signInWithPopup(provider)
     .then((result) => {
  
-      var user = result.user;
-      if(user){
-        this.userService.save(user);
+      let user = result.user;
+      if(!user) return;
 
-        let returnUrl = localStorage.getItem('returnUrl')!;
+      this.userService.save(user);
+
+      let returnUrl = localStorage.getItem('returnUrl')!;
+      if(!returnUrl) return;
+      
+        localStorage.removeItem('returnUrl');
         this.router.navigateByUrl(returnUrl);
-      }
       // ...
     }).catch((error) => {
    

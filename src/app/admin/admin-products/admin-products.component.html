@@ -1,1 +1,40 @@
-<p>admin-products works!</p>
+<p>
+    <a routerLink="/admin/products/new" class="btn btn-primary">New product</a>
+</p>
+<p>
+    <input #query type="text" class="form-control" placeholder="Search..." 
+      (keyup)="filter(query.value)">
+</p>
+
+<div class="custome-table">
+    <data-table
+      (reload)="reloadItems($event)"
+      (rowClick)="rowClick($event)"
+      (rowDoubleClick)="rowDoubleClick($event)"
+      [itemCount]="itemCount"
+      [items]="items"
+      [pageLimits]="limits"
+      [rowTooltip]="rowTooltip"
+      [title]="'Product List'">
+      <data-table-column
+        [header]="'Title'"
+        [property]="'title'"
+        [resizable]="true"
+        [sortable]="true">
+      </data-table-column>
+      <data-table-column
+        [header]="'Price'"
+        [property]="'price'"
+        [sortable]="true">
+        <ng-template #dataTableCell let-item="item">
+          <span>{{ item.price | currency:'USD':true  }}</span>
+        </ng-template>
+      </data-table-column>
+      <data-table-column
+      [property]="'key'">
+      <ng-template #dataTableCell let-item="item">
+        <a [routerLink]="['/admin/products/', item.key]" >Edit</a>
+      </ng-template>
+    </data-table-column>
+    
+    </data-table>
