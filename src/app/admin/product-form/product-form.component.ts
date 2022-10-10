@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { CategoryService } from 'src/app/category.service';
+import Category from 'src/app/models/category.model';
 import Product from 'src/app/models/product.model';
 import { ProductService } from 'src/app/product.service';
 
@@ -14,7 +15,7 @@ const { minLength, required, requiredTrue, min ,pattern} = Validators;
   styleUrls: ['./product-form.component.css']
 })
 export class ProductFormComponent  {
-  categorie$!: Observable<any[]>;
+  categorie$!: Observable<Category[]>;
   form!: FormGroup;
 
   product:Product = new Product;
@@ -27,7 +28,7 @@ export class ProductFormComponent  {
               private router:Router,
               private route:ActivatedRoute) {
 
-       this.categorie$ = this.categoryService.getCategories();
+       this.categorie$ = this.categoryService.getAll();
        this.id = this.route.snapshot.paramMap.get('id');
        
        if(this.id) {

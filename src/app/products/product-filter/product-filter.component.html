@@ -1,0 +1,58 @@
+<div class="offcanvas-body ps-lg-2 pt-lg-0">
+  <div class="mb-8">
+  <!-- title -->
+  <h5 class="mb-3">Categories</h5>
+  <!-- nav -->
+  <ul class="nav nav-category" id="categoryCollapseMenu">
+    <li class="nav-item border-bottom w-100 collapsed" data-bs-toggle="collapse">
+      <a  class="nav-link"
+      [class.active]="!category"
+      routerLink="/"
+      >All Categories <i class="feather-icon icon-chevron-right"></i></a>
+
+
+    </li>
+    <!-- nav item -->
+    <li class="nav-item border-bottom w-100 collapsed" data-bs-toggle="collapse">
+      <a  *ngFor="let c of categories$ | async"  class="nav-link"
+      routerLink="/"
+      [queryParams]="{ category: c.key}"
+      [class.active]="category ===  c.key"
+      >
+      {{c.name }} 
+      <i class="feather-icon icon-chevron-right"></i>
+      </a>
+
+     </li>              
+
+  </ul>
+</div>
+
+<div class="mb-8">
+  <!-- price range -->
+  <h5 class="mb-3">Price</h5>
+  <div>
+    <!-- range -->
+    <div id="priceRange" class="mb-3 noUi-target noUi-ltr noUi-horizontal noUi-txt-dir-ltr"><div class="noUi-base"><div class="noUi-connects"><div class="noUi-connect" style="transform: translate(14.6259%) scale(0.510204, 1);"></div></div><div class="noUi-origin" style="transform: translate(-85.3741%); z-index: 5;"><div class="noUi-handle noUi-handle-lower" data-handle="0" tabindex="0" role="slider" aria-orientation="horizontal" aria-valuemin="6.0" aria-valuemax="199.0" aria-valuenow="49.0" aria-valuetext="$49"><div class="noUi-touch-area"></div></div></div><div class="noUi-origin" style="transform: translate(-34.3537%); z-index: 4;"><div class="noUi-handle noUi-handle-upper" data-handle="1" tabindex="0" role="slider" aria-orientation="horizontal" aria-valuemin="49.0" aria-valuemax="300.0" aria-valuenow="199.0" aria-valuetext="$199"><div class="noUi-touch-area"></div></div></div></div></div>
+    <small class="text-muted">Price:</small> <span id="priceRange-value" class="small">$19 - $199</span>
+
+  </div>
+
+</div>
+
+<div class="mb-8 position-relative">
+  <!-- Banner Design -->
+  <!-- Banner Content -->
+  <div class="p-5 py-8">
+    <h3 class="mb-0">Red Label Belts </h3>
+    <p>Get Upto 25% Off</p>
+    <a href="#" class="btn btn-dark">Shop Now<i class="feather-icon icon-arrow-right ms-1"></i></a>
+  </div>
+  <!-- Banner Content -->
+  <!-- Banner Image -->
+  <!-- img --><img src="../assets/images/banner/assortment-citrus-fruits.png" alt="" class="img-fluid rounded-3">
+  <!-- Banner Image -->
+</div>
+</div>
+
+

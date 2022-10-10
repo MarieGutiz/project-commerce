@@ -30,6 +30,8 @@ import { NgxValidateCoreModule } from '@ngx-validate/core';
 
 import { DataTableModule } from 'angular-datatables-all-versions';
 import { ErrorComponent } from './error-comp/error.component';
+import { ProductFilterComponent } from './products/product-filter/product-filter.component';
+import { ProductCardComponent } from './product-card/product-card.component';
 
 
 @NgModule({
@@ -46,7 +48,9 @@ import { ErrorComponent } from './error-comp/error.component';
     AdminProductsComponent,
     AdminOrdersComponent,
     ProductFormComponent,
-    ErrorComponent
+    ErrorComponent,
+    ProductFilterComponent,
+    ProductCardComponent
     
   ],
   imports: [

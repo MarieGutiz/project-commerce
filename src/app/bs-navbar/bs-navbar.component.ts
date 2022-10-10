@@ -9,6 +9,7 @@ import { AppUser } from '../models/app-user';
 })
 export class BsNavbarComponent {
   appUser!:AppUser
+  toggleBtn:boolean =false;
   constructor(private auth:AuthService) { 
     auth.appUser$.subscribe(user=> this.appUser =user)
   }
@@ -17,5 +18,7 @@ export class BsNavbarComponent {
   logout(){
    this.auth.logout();
   }
-
+  toggle(){
+    this.toggleBtn = !this.toggleBtn;
+  }
 }

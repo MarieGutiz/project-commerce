@@ -34,7 +34,7 @@
                          autocomplete="off" #category>
                          
                         <option value=""></option>
-                        <option *ngFor="let item of categorie$ | async" [value]="item.name">
+                        <option *ngFor="let item of categorie$ | async" [value]="item.key">
                             {{item.name}}
                         </option>
                     </select>
