@@ -13,7 +13,7 @@ export class CategoryService {
 
   getAll():Observable<Category[]>{
     return this.db.list<AngularFireList<Category>>('/categories',ref => ref.orderByChild('name')).snapshotChanges().pipe(
-      map(changes =>
+      map(changes =>        
         changes.map(c =>
           ({ key: c.payload.key, ...c.payload.val() })
         )

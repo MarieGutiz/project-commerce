@@ -32,6 +32,8 @@ import { DataTableModule } from 'angular-datatables-all-versions';
 import { ErrorComponent } from './error-comp/error.component';
 import { ProductFilterComponent } from './products/product-filter/product-filter.component';
 import { ProductCardComponent } from './product-card/product-card.component';
+import { ShoppingCartService } from './shopping-cart.service';
+import { ProductQuantityComponent } from './product-quantity/product-quantity.component';
 
 
 @NgModule({
@@ -50,7 +52,8 @@ import { ProductCardComponent } from './product-card/product-card.component';
     ProductFormComponent,
     ErrorComponent,
     ProductFilterComponent,
-    ProductCardComponent
+    ProductCardComponent,
+    ProductQuantityComponent
     
   ],
   imports: [
@@ -98,7 +101,8 @@ import { ProductCardComponent } from './product-card/product-card.component';
     AdminAuthGuard,
     UserService,
     CategoryService,
-    ProductService
+    ProductService,
+    ShoppingCartService
   ],
   entryComponents: [ErrorComponent],
   bootstrap: [AppComponent]
