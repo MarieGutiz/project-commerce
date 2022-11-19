@@ -1,1 +1,3 @@
-<p>admin-orders works!</p>
+<ng-container *ngIf="order$ | async  as orders">
+    <standard-table [orders]="orders"></standard-table>  
+</ng-container>

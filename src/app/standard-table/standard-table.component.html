@@ -1,0 +1,55 @@
+<p>
+  <input #query type="text" class="form-control" placeholder="Search by name..." 
+    (keyup)="filter(query.value)">
+</p>
+
+<div class="custome-table">
+    <data-table
+      (reload)="reloadItems($event)"
+      (rowClick)="rowClick($event)"
+      (rowDoubleClick)="rowDoubleClick($event)"
+      [itemCount]="itemCount"
+      [items]="items"
+      [pageLimits]="limits"
+      [rowTooltip]="rowTooltip"
+      [title]="'Orders List'">
+      <data-table-column
+        [header]="'Name'"
+        [property]="'shipping.firstName'"
+        [resizable]="true"
+        [sortable]="true">
+        <ng-template #dataTableCell let-item="item">
+          <span>{{ item.shipping.firstName }}</span>
+        </ng-template>
+      </data-table-column>
+      <data-table-column
+        [header]="'Date'"
+        [property]="'dateOrder'"
+        [sortable]="true">
+        <ng-template #dataTableCell let-item="item">
+          <span>{{ item.dateOrder | date:'medium' }}</span>
+        </ng-template>
+      </data-table-column>
+      <data-table-column
+      [header]="'Items'"
+      [property]="'itemsCount'"
+      [resizable]="true"
+      [sortable]="true">
+    </data-table-column>
+    <data-table-column
+    [header]="'Amount'"
+    [property]="'totalAmount'"
+    [sortable]="true">
+    <ng-template #dataTableCell let-item="item">
+      <span>{{ item.totalAmount |  currency:'USD':true }}</span>
+    </ng-template>
+  </data-table-column>
+      <data-table-column
+      [property]="'key'">
+      <ng-template #dataTableCell let-item="items">
+        <a [routerLink]="['/admin/orders']" >See more</a>
+      </ng-template>
+    </data-table-column>
+    
+    </data-table>
+    </div>

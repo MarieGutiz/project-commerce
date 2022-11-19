@@ -4,6 +4,7 @@ export default class Product {
     price?:number;
     category?:string;
     image?:string
+    
   }
 
  

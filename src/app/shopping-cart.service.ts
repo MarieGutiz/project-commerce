@@ -18,27 +18,32 @@ export class ShoppingCartService {
   constructor(private db:AngularFireDatabase) { }
 
 
-  private create():string{
-       
-     this.db.list('/shopping-carts').push({
-         dateCreated: new Date().getTime()
-       }).once("value").then(result=>{
-           localStorage.setItem('cartId',result.key!);
-           this.door=true;
-           return result.key
-           
-       })
-    return "";
-  }
-  
-  clearCart() {
-    let cartId =  this.getOrCreateCartId();
+  private async create():Promise<string>{ //ver    
+    
+    try {
+      await this.db.list('/shopping-carts').push({
+        dateCreated: new Date().getTime()
+      }).once("value").then(result=>{
+          localStorage.setItem('cartId',result.key!);
+          this.door=true;
+          return result.key
+          
+      })
+    } catch (error) {
+      console.log("error creating localstorage key!!")
+    }
+ 
+   return "Not subscribed";
+ }
+ 
+  async clearCart() {
+    let cartId = await this.getOrCreateCartId();
     this.db.object('/shopping-carts/'+cartId+'/items').remove();
   }
 
   async getCart():Promise<Observable<ShoppingCarts>>{
-    let cartId = this.getOrCreateCartId();
-     //  console.log("cart Id "+cartId);
+    let cartId = await this.getOrCreateCartId();
+      // console.log("cart Id "+cartId);
        let items:ShoppingCartItems[];
        let T= this.getAllItems(cartId!).pipe(
           switchMap(it=>{
@@ -49,6 +54,7 @@ export class ShoppingCartService {
         map(changer=>{
             changer.items = items
           // Object.assign
+         // console.log("mapping shopping cart datecreated "+changer.dateCreated + " keys "+changer.key)
           const S = new ShoppingCarts(changer.key!, changer.dateCreated!, changer.items)
             return S
         })
@@ -86,14 +92,14 @@ export class ShoppingCartService {
   private getItem(cartId:string, productId:string){
     return this.db.object('/shopping-carts/'+cartId+'/items/'+productId)
   }
-  private getOrCreateCartId(){
+  private async getOrCreateCartId(){//ver
     let cartId = localStorage.getItem('cartId');
     if(cartId) return cartId;
    
     let result 
-    if(!this.door){
-      result = this.create();
 
+    if(!this.door){
+      result = await this.create();
     }    
       return result
     
@@ -101,7 +107,7 @@ export class ShoppingCartService {
 
  
   private async updateItem(product:Product, change:number){
-    let cartId =  this.getOrCreateCartId();
+    let cartId =  await this.getOrCreateCartId();
     let item$ =this.getItem(cartId!,product.key!);
     
    item$.snapshotChanges().pipe(take(1)).subscribe(item =>{

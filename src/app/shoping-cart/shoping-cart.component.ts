@@ -18,8 +18,8 @@ export class ShopingCartComponent implements OnInit {
 
   }
 
-  clearCart(){
-    this.shoppingCartService.clearCart();
+  async clearCart(){
+   await  this.shoppingCartService.clearCart();
   }
 
 }

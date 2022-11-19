@@ -1,1 +1,22 @@
-<p>check-out works!</p>
+
+<div class="row" *ngIf="cart$ | async as cart">
+    <div class="col-lg-7 col-md-12">
+ <div class="shipment">
+    <div class="d-flex justify-content-between mb-5">
+        <!-- heading -->
+        <div>
+          <h5 class="h6 mb-1" id="addAddressModalLabel">Shipping Address</h5>
+          <p class="small mb-0">Add shipping address for your order delivery.</p>
+        </div>
+      </div>
+      <!-- row -->
+   <shipping-form [cart]="cart"></shipping-form>
+
+ </div>   
+    </div>
+    
+    <div class="col-12 col-md-12 offset-lg-1 col-lg-4">
+     <shopping-cart-summary [cart]="cart"></shopping-cart-summary>
+    </div>
+  
+</div>

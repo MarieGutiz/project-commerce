@@ -7,7 +7,7 @@ export default interface ShoppingCartItems{
     
 }
 
-export  class TotalItemsCart{
+export class TotalItemsCart{
     key?:string | null;
     product?:Product;
     quantity?:number;

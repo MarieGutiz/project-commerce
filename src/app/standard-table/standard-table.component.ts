@@ -1,40 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { DataTableResource } from 'angular-datatables-all-versions';
 import { Subscription } from 'rxjs';
-import Product from 'src/app/models/product.model';
-import { ProductService } from 'src/app/product.service';
+import Order from '../models/order.model';
 
 @Component({
-  selector: 'app-admin-products',
-  templateUrl: './admin-products.component.html',
-  styleUrls: ['./admin-products.component.css']
+  selector: 'standard-table',
+  templateUrl: './standard-table.component.html',
+  styleUrls: ['./standard-table.component.css']
 })
-export class AdminProductsComponent implements OnInit {
-  products?:Product[];
+export class StandardTableComponent implements OnInit {
+
+
   subscription?:Subscription;
 
   itemCount = 0;
   limits = [10, 20, 40, 80];
-  tableResource!:DataTableResource<Product>;
-  items!: Product[];
+  tableResource!:DataTableResource<Order>;
 
-  constructor(private productService:ProductService) {
-    this.retrieveProducts();
+  items!: Order[];
+  @Input('orders') orders!:Order[];
+  counts = 4;
+  constructor() {
    }
 
   ngOnInit(): void {
+    this.initalizeTable(this.orders);
   }
    
-   retrieveProducts(): void {
- 
-    this.productService.getAll().subscribe(data => {
-      this.products = data;
-      this.initalizeTable(data)
-    });
-  }
-  private initalizeTable(products:Product[]){
-     
-    this.tableResource = new DataTableResource(products);
+
+  private initalizeTable(orders:Order[]){
+    this.tableResource = new DataTableResource(orders);
     this.tableResource.query({offset:0})
         .then( items=>{
           this.items = items;
@@ -45,16 +40,14 @@ export class AdminProductsComponent implements OnInit {
         });  
   }
   filter(query:string){
-   //  console.log(query);
+   console.log(query);
      let filteredProducts = (query)?
-       this.products?.filter(p=>p.title?.toLowerCase().includes(query.toLowerCase())):
-       this.products
+       this.orders?.filter(o=>o.shipping?.firstName?.toLowerCase().includes(query.toLowerCase())):
+       this.orders
        
        if(!filteredProducts) return;
        this.initalizeTable(filteredProducts);
   }
-
-
   
 reloadItems(params:any) {
   if(!this.tableResource) return;
@@ -71,6 +64,7 @@ reloadItems(params:any) {
  }
  
  rowTooltip(item:any) {
-   return item.price;
+   return item;
  }
+
 }

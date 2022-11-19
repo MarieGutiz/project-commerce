@@ -1,0 +1,62 @@
+<form [formGroup]="shippingForm" (ngSubmit)="placeOrder()" _validateOnSubmit novalidate>
+     
+    <div class="row g-3" formGroupName="shippingFb">
+      <!-- col -->
+      <div class="col-12 form-group is-invalid">
+        <input class="form-control" placeholder="First name" aria-label="First name" id="firstName"
+        formControlName="firstName" #firstName   
+        >
+      </div>
+      <!-- col -->
+      <div class="col-12 form-group">
+        <input type="text" class="form-control" placeholder="Last name" aria-label="Last name" id="lastName"
+        formControlName="lastName" #lastName >
+      </div>
+      <!-- col -->
+      <div class="col-12 form-group">
+
+        <input type="text" class="form-control" placeholder="Address Line 1" id="addressLine1" 
+        formControlName="addressLine1" #addressLine1>
+      </div>
+      <div class="col-12 form-group">
+        <!-- button -->
+        <input type="text" class="form-control" placeholder="Address Line 2"  id="addressLine2"
+        formControlName="addressLine2" #addressLine2>
+      </div>
+      <div class="col-12 form-group">
+        <!-- button -->
+        <input type="text" class="form-control" placeholder="City"
+        formControlName="city" #city>
+      </div>
+      <div class="col-12 form-group">
+        <!-- button -->
+        <select class="form-select" 
+        formControlName="country" #country>
+          <option selected="USA"> USA </option>
+          <option value="UK">UK</option>
+          <option value="Nicaragua">Nicaragua</option>
+          <option value="Mexico">Mexico</option>
+        </select>
+      </div>
+      <div class="col-12 form-group">
+        <input  class="form-control" placeholder="Zip Code"
+        formControlName="zip" id="zip" type="number" #zip minlength="4">
+      </div>
+      <div class="col-12 ">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+          <!-- label -->
+          <label class="form-check-label" for="flexCheckDefault">
+            Set as Default
+          </label>
+        </div>
+      </div>
+      <!-- button -->
+      <div class="col-12 text-end">             
+        <button 
+        [disabled]="!shippingForm.valid"
+         class="btn btn-primary" type="submit" >Place order</button>
+      </div>
+    </div>
+ 
+ </form>

@@ -1,6 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { CategoryService } from '../category.service';
 import Category from '../models/category.model';
@@ -27,22 +27,24 @@ export class ProductsComponent implements OnInit {
   cart$!: Observable<ShoppingCarts>;
  // subscription$?:Subscription
  // cart!: ShoppingCarts;
+ //@Output() newItemEvent = new EventEmitter<string>();
 
   constructor(private route:ActivatedRoute,    
               private productService:ProductService,
               private categoryService:CategoryService,
-              private shoppingCartService:ShoppingCartService) {      
-
-                
-          
+              private shoppingCartService:ShoppingCartService) {                
+      
    
   }
   
   async ngOnInit() {
-     this.cart$ = (await this.shoppingCartService.getCart())
-
+   this.cart$ = await this.shoppingCartService.getCart()
+   setTimeout(async () =>{
+    this.cart$ = await this.shoppingCartService.getCart();
+     },500)
      this.categories$ = this.categoryService.
      getAll();
+
 
      this.populateProducts()
     
@@ -54,12 +56,22 @@ export class ProductsComponent implements OnInit {
       switchMap(products=>{
          this.products = products;
          this.categories$?.subscribe(c=>this.categories = c)
+        //  setTimeout(async () =>{
+        //   this.cart$ = await this.shoppingCartService.getCart();
+        // },1200)
+        // this.categories$?.pipe(
+        //   switchMap(c=>{
+        //     this.categories = c
+        //      return this.shoppingCartService.getCart()
+        //   })
+        // ).subscribe(cart => this.cart$ = cart);
+       
          return this.route.queryParamMap;
       })
     ).subscribe(
       params =>{
         this.category = params.get('category');
-        this.applyFilter()               ;
+        this.applyFilter();      
      
       }
     ) 
