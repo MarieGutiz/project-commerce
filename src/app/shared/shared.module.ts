@@ -8,6 +8,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxValidateCoreModule } from '@ngx-validate/core';
 import { DataTableModule } from 'angular-datatables-all-versions';
 import { AppRoutingModule } from 'app/app-routing.module';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
 
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { ProductQuantityComponent } from './components/product-quantity/product-quantity.component';
@@ -28,7 +29,8 @@ import { UserService } from './services/user.service';
     ProductCardComponent,
     ProductQuantityComponent,
     StandardTableComponent,
-    ErrorComponent
+    ErrorComponent,
+    
   ],
   imports: [
     CommonModule,
@@ -48,6 +50,8 @@ import { UserService } from './services/user.service';
     }),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
+    NgxSliderModule
+    
 
   ],
   exports:[
@@ -66,6 +70,7 @@ import { UserService } from './services/user.service';
     DataTableModule,
     AngularFireAuthModule,
     AngularFireDatabaseModule,
+    NgxSliderModule
   ],
   providers:[
     AuthService,

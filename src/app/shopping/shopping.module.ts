@@ -11,6 +11,7 @@ import { ProductsComponent } from './components/products/products.component';
 import { ShippingFormComponent } from './components/shipping-form/shipping-form.component';
 import { ShoppingCartSummaryComponent } from './components/shopping-cart-summary/shopping-cart-summary.component';
 import { ShopingCartComponent } from './components/shopping-cart/shoping-cart.component';
+import { PriceRangeComponent } from './components/products/price-range/price-range.component';
 
 
 
@@ -23,7 +24,8 @@ import { ShopingCartComponent } from './components/shopping-cart/shoping-cart.co
     ShopingCartComponent,
     ProductFilterComponent,    
     ShoppingCartSummaryComponent,
-    ShippingFormComponent
+    ShippingFormComponent,
+    PriceRangeComponent
   ],
   imports: [
     SharedModule,
